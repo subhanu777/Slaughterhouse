@@ -107,7 +107,5 @@ public class Tray {
 		return "Tray [trayId=" + trayId + ", maxWeight=" + maxWeight + ", currentWeight=" + currentWeight
 				+ ", trayType=" + trayType + ", animalParts=" + animalParts + "]";
 	}
-	
-	
-	
+
 }
