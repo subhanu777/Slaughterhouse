@@ -1,5 +1,6 @@
 package adapter;
 
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import adaptee.Adaptee;
@@ -37,7 +38,6 @@ public class Adapter implements IAdapter{
 	}
 
 
-
 	@Override
 	public void addProductContent(int productId, int trayId)throws SQLException {	
 		String sql = "insert into product_content values ("+productId+", "+trayId+")";
@@ -51,22 +51,21 @@ public class Adapter implements IAdapter{
 		String sql = "insert into tray_content values ("+animalId+", "+trayId+")";
 		adaptee.update(sql);
 	}
-	public static void main(String[] args) throws ClassNotFoundException {
 	
-		try{
-			Adapter adapter  = new Adapter();
-			adapter.addTrayContent(21, 22);
+	
+	/*public String getInfectedProducts(int productId) throws SQLException {
+		String sql ="select unique product_id from product_content inner join (select tray_id as tr from tray_content inner join (select tray_id as infected_tray from product_content where product_id = 6) on tray_id = infected_tray) on product_content.tray_id = tr";
+		
+		ResultSet rs = adaptee.query(sql);
+		while (rs.next()) {
+			int ssn = rs.getInt("product_id");
+			System.out.println(ssn);
 		}
-		catch(SQLException e) {
-		e.printStackTrace();
-	}
+		return "a";
 	
-	}
+	}*/
 	
-	
-	
-	
-	
+
 	
 	
 	
