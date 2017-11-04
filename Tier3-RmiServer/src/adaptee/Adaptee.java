@@ -1,4 +1,4 @@
-package tier1;
+package adaptee;
 
 	import java.io.Serializable;
 	import java.sql.ResultSet;
