@@ -4,8 +4,11 @@ import java.rmi.Naming;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
+import java.rmi.server.RemoteObject;
+import java.rmi.server.RemoteObjectInvocationHandler;
 import java.rmi.server.UnicastRemoteObject;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 import adapter.Adapter;
 
@@ -17,19 +20,15 @@ public class DatabaseServer extends UnicastRemoteObject implements IDatabaseServ
 		super();
 		Registry registry = LocateRegistry.createRegistry(1099);
 	}
+
 	public static void main(String[] args) {
-		
 		try {
-			IDatabaseServer databaseServer = new DatabaseServer();
+			IDatabaseServer databaseServer = (IDatabaseServer) new DatabaseServer();
 			Naming.rebind("DatabaseServer", databaseServer);
 			System.out.println("DatabaseServer started");
-			
-		}
-		catch (Exception e) {
+		} catch (Exception e) {
 			e.printStackTrace();
-
 		}
-		
 	}
 
 	@Override
@@ -38,23 +37,28 @@ public class DatabaseServer extends UnicastRemoteObject implements IDatabaseServ
 	}
 
 	@Override
-	public void registerTray(double maxWeight) throws SQLException{
+	public void registerTray(double maxWeight) throws SQLException {
 		adapter.registerTray(maxWeight);
 	}
 
 	@Override
-	public void registerProduct(String productType) throws SQLException{
+	public void registerProduct(String productType) throws SQLException {
 		adapter.registerProduct(productType);
 	}
 
 	@Override
-	public void addProductContent(int productId, int trayId)throws SQLException {
+	public void addProductContent(int productId, int trayId) throws SQLException {
 		adapter.addProductContent(productId, trayId);
 	}
 
 	@Override
-	public void addTrayContent(int trayId, int animalId)throws SQLException {
+	public void addTrayContent(int trayId, int animalId) throws SQLException {
 		adapter.addTrayContent(trayId, animalId);
+	}
+
+	@Override
+	public ArrayList<Integer> getInfectedProducts(int productId) throws RemoteException, SQLException {
+		return adapter.getInfectedProducts(productId);
 	}
 
 }

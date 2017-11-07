@@ -3,18 +3,16 @@ import java.rmi.Remote;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 
-import databaseServer.IDatabaseServer;
-
-public class DatabaseClient extends UnicastRemoteObject implements IDatabaseServer{
+public class DatabaseClient{
 
 	
-	private IDatabaseServer databaseServer;
+	private IDatabaseServer databaseClient;
 	
 	public DatabaseClient() throws RemoteException {
 		super();
 		try {
 
-			databaseServer =  (IDatabaseServer) Naming.lookup("rmi://localhost:1099/DatabaseServer");
+			databaseClient =  (IDatabaseServer) Naming.lookup("rmi://localhost:1099/DatabaseServer");
 			System.out.println("connected to server");
 			
 

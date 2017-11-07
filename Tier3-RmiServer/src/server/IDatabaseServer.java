@@ -3,6 +3,7 @@ package server;
 import java.rmi.Remote;
 import java.rmi.RemoteException;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 public interface IDatabaseServer extends Remote{
 
@@ -12,6 +13,7 @@ public interface IDatabaseServer extends Remote{
 	
 	public void addProductContent(int productId,int trayId)throws RemoteException, SQLException;
 	public void addTrayContent(int trayId,int animalId)throws RemoteException, SQLException;
-	//public String getInfectedProducts(int productId) throws SQLException;
+	
+	public ArrayList<Integer> getInfectedProducts(int productId) throws RemoteException, SQLException;
 
 }
