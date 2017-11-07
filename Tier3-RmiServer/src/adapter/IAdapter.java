@@ -10,6 +10,6 @@ public interface IAdapter {
 	public void registerProduct(String productType )throws SQLException;
 	
 	public void addProductContent(int productId,int trayId)throws SQLException;
-	public void addTrayContent(int trayId,int animalId)throws SQLException;
+	public void addTrayContent(int trayId,int animalId,double weight)throws SQLException;
 	public ArrayList<Integer> getInfectedProducts(int productId) throws SQLException;
 }

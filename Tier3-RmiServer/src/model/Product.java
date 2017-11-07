@@ -1,7 +1,8 @@
 package model;
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public abstract class Product {
+public abstract class Product implements Serializable{
 	
 	private int productId;
 	private ArrayList<Integer> trays;

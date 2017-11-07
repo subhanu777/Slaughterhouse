@@ -1,6 +1,8 @@
 package model;
 
-public class Animal {
+import java.io.Serializable;
+
+public class Animal implements Serializable{
 
 	private int animalId;
 	private double weight;

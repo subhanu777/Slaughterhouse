@@ -125,10 +125,10 @@ public class Adapter implements IAdapter {
 	}
 
 	@Override
-	public void addTrayContent(int trayId, int animalId) throws SQLException {
+	public void addTrayContent(int trayId, int animalId,double weight) throws SQLException {
 		try {
 			openDatabase();
-			String sql = "insert into tray_content values (" + animalId + ", " + trayId + ")";
+			String sql = "insert into tray_content values (" + animalId + ", " + trayId + ", "+ weight + ")";
 			PreparedStatement stmt = conn.prepareStatement(sql);
 			stmt.executeQuery();
 			stmt.close();

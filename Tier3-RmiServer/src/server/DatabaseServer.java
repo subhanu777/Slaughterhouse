@@ -52,8 +52,8 @@ public class DatabaseServer extends UnicastRemoteObject implements IDatabaseServ
 	}
 
 	@Override
-	public void addTrayContent(int trayId, int animalId) throws SQLException {
-		adapter.addTrayContent(trayId, animalId);
+	public void addTrayContent(int trayId, int animalId,double weight) throws SQLException {
+		adapter.addTrayContent(trayId, animalId, weight);
 	}
 
 	@Override

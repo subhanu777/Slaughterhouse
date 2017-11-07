@@ -1,6 +1,8 @@
 package model;
 
-public class OneTypeProduct extends Product{
+import java.io.Serializable;
+
+public class OneTypeProduct extends Product implements Serializable{
 
 	private String partType;
 	public OneTypeProduct(int productId,String partType) {
