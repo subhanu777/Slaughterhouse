@@ -11,54 +11,102 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 import adapter.Adapter;
+import adapter.IAdapter;
+import model.Animal;
 
 public class DatabaseServer extends UnicastRemoteObject implements IDatabaseServer {
 
-	private Adapter adapter;
+	private IAdapter adapter;
 
 	public DatabaseServer() throws RemoteException {
 		super();
-		Registry registry = LocateRegistry.createRegistry(1099);
+		try {
+			adapter=new Adapter();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 	}
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws RemoteException {
+		IDatabaseServer databaseServer = (IDatabaseServer) new DatabaseServer();
+	
 		try {
-			IDatabaseServer databaseServer = (IDatabaseServer) new DatabaseServer();
-			Naming.rebind("DatabaseServer", databaseServer);
+			
+		
+			LocateRegistry.createRegistry(1099);
+			String path = "//localhost:1099/DatabaseServer";
+			Naming.bind("DatabaseServer", databaseServer);
 			System.out.println("DatabaseServer started");
+			
 		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+	}
+
+	@Override
+	public void registerAnimal(double weight) {
+		try {
+			adapter.registerAnimal(weight);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
 
 	@Override
-	public void registerAnimal(double weight) throws SQLException {
-		adapter.registerAnimal(weight);
+	public void registerTray(double maxWeight) {
+		try {
+			adapter.registerTray(maxWeight);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	@Override
-	public void registerTray(double maxWeight) throws SQLException {
-		adapter.registerTray(maxWeight);
+	public void registerProduct(String productType){
+		try {
+			adapter.registerProduct(productType);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	@Override
-	public void registerProduct(String productType) throws SQLException {
-		adapter.registerProduct(productType);
+	public void addProductContent(int productId, int trayId) {
+		try {
+			adapter.addProductContent(productId, trayId);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	@Override
-	public void addProductContent(int productId, int trayId) throws SQLException {
-		adapter.addProductContent(productId, trayId);
+	public void addTrayContent(int trayId, int animalId,double weight) {
+		try {
+			adapter.addTrayContent(trayId, animalId, weight);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	@Override
-	public void addTrayContent(int trayId, int animalId,double weight) throws SQLException {
-		adapter.addTrayContent(trayId, animalId, weight);
+	public int[] getInfectedProducts(int productId) throws RemoteException {
+		int [] arr = new int[0];
+		try {
+			arr = adapter.getInfectedProducts(productId);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return arr;
 	}
 
-	@Override
-	public ArrayList<Integer> getInfectedProducts(int productId) throws RemoteException, SQLException {
-		return adapter.getInfectedProducts(productId);
-	}
 
 }

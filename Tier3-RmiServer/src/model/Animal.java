@@ -11,6 +11,11 @@ public class Animal implements Serializable{
 		this.animalId = animalId;
 		this.weight = weight;
 	}
+	public Animal(double weight) {
+
+		this.animalId = 0;
+		this.weight = weight;
+	}
 	@Override
 	public String toString() {
 		return "Animal [animalId=" + animalId + ", weight=" + weight + "]";

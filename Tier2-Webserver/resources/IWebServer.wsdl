@@ -1,0 +1,252 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions targetNamespace="http://webserver" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:ns="http://webserver" xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:ns1="http://org.apache.axis2/xsd" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/">
+  <wsdl:types>
+    <xs:schema attributeFormDefault="qualified" elementFormDefault="qualified" targetNamespace="http://webserver">
+            <xs:element name="registerTray">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="args0" type="xs:double"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="registerProduct">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element minOccurs="0" name="args0" nillable="true" type="xs:string"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="registerAnimal">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="args0" type="xs:double"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="getInfectedProducts">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="args0" type="xs:int"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="getInfectedProductsResponse">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element maxOccurs="unbounded" name="return" type="xs:int"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="addTrayContent">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="args0" type="xs:int"/>
+                        <xs:element name="args1" type="xs:int"/>
+                        <xs:element name="args2" type="xs:double"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="addProductContent">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="args0" type="xs:int"/>
+                        <xs:element name="args1" type="xs:int"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+        </xs:schema>
+  </wsdl:types>
+  <wsdl:message name="addTrayContentRequest">
+    <wsdl:part name="parameters" element="ns:addTrayContent">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="registerAnimalRequest">
+    <wsdl:part name="parameters" element="ns:registerAnimal">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="registerProductRequest">
+    <wsdl:part name="parameters" element="ns:registerProduct">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getInfectedProductsRequest">
+    <wsdl:part name="parameters" element="ns:getInfectedProducts">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getInfectedProductsResponse">
+    <wsdl:part name="parameters" element="ns:getInfectedProductsResponse">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="registerTrayRequest">
+    <wsdl:part name="parameters" element="ns:registerTray">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="addProductContentRequest">
+    <wsdl:part name="parameters" element="ns:addProductContent">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:portType name="IWebServerPortType">
+    <wsdl:operation name="addTrayContent">
+      <wsdl:input message="ns:addTrayContentRequest" wsaw:Action="urn:addTrayContent">
+    </wsdl:input>
+    </wsdl:operation>
+    <wsdl:operation name="registerProduct">
+      <wsdl:input message="ns:registerProductRequest" wsaw:Action="urn:registerProduct">
+    </wsdl:input>
+    </wsdl:operation>
+    <wsdl:operation name="addProductContent">
+      <wsdl:input message="ns:addProductContentRequest" wsaw:Action="urn:addProductContent">
+    </wsdl:input>
+    </wsdl:operation>
+    <wsdl:operation name="registerAnimal">
+      <wsdl:input message="ns:registerAnimalRequest" wsaw:Action="urn:registerAnimal">
+    </wsdl:input>
+    </wsdl:operation>
+    <wsdl:operation name="getInfectedProducts">
+      <wsdl:input message="ns:getInfectedProductsRequest" wsaw:Action="urn:getInfectedProducts">
+    </wsdl:input>
+      <wsdl:output message="ns:getInfectedProductsResponse" wsaw:Action="urn:getInfectedProductsResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="registerTray">
+      <wsdl:input message="ns:registerTrayRequest" wsaw:Action="urn:registerTray">
+    </wsdl:input>
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="IWebServerSoap11Binding" type="ns:IWebServerPortType">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsdl:operation name="addTrayContent">
+      <soap:operation soapAction="urn:addTrayContent" style="document"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+    </wsdl:operation>
+    <wsdl:operation name="registerProduct">
+      <soap:operation soapAction="urn:registerProduct" style="document"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+    </wsdl:operation>
+    <wsdl:operation name="addProductContent">
+      <soap:operation soapAction="urn:addProductContent" style="document"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+    </wsdl:operation>
+    <wsdl:operation name="registerAnimal">
+      <soap:operation soapAction="urn:registerAnimal" style="document"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+    </wsdl:operation>
+    <wsdl:operation name="getInfectedProducts">
+      <soap:operation soapAction="urn:getInfectedProducts" style="document"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="registerTray">
+      <soap:operation soapAction="urn:registerTray" style="document"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="IWebServerSoap12Binding" type="ns:IWebServerPortType">
+    <soap12:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsdl:operation name="addTrayContent">
+      <soap12:operation soapAction="urn:addTrayContent" style="document"/>
+      <wsdl:input>
+        <soap12:body use="literal"/>
+      </wsdl:input>
+    </wsdl:operation>
+    <wsdl:operation name="registerProduct">
+      <soap12:operation soapAction="urn:registerProduct" style="document"/>
+      <wsdl:input>
+        <soap12:body use="literal"/>
+      </wsdl:input>
+    </wsdl:operation>
+    <wsdl:operation name="addProductContent">
+      <soap12:operation soapAction="urn:addProductContent" style="document"/>
+      <wsdl:input>
+        <soap12:body use="literal"/>
+      </wsdl:input>
+    </wsdl:operation>
+    <wsdl:operation name="registerAnimal">
+      <soap12:operation soapAction="urn:registerAnimal" style="document"/>
+      <wsdl:input>
+        <soap12:body use="literal"/>
+      </wsdl:input>
+    </wsdl:operation>
+    <wsdl:operation name="getInfectedProducts">
+      <soap12:operation soapAction="urn:getInfectedProducts" style="document"/>
+      <wsdl:input>
+        <soap12:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="registerTray">
+      <soap12:operation soapAction="urn:registerTray" style="document"/>
+      <wsdl:input>
+        <soap12:body use="literal"/>
+      </wsdl:input>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="IWebServerHttpBinding" type="ns:IWebServerPortType">
+    <http:binding verb="POST"/>
+    <wsdl:operation name="addTrayContent">
+      <http:operation location="addTrayContent"/>
+      <wsdl:input>
+        <mime:content part="parameters" type="application/xml"/>
+      </wsdl:input>
+    </wsdl:operation>
+    <wsdl:operation name="registerProduct">
+      <http:operation location="registerProduct"/>
+      <wsdl:input>
+        <mime:content part="parameters" type="application/xml"/>
+      </wsdl:input>
+    </wsdl:operation>
+    <wsdl:operation name="addProductContent">
+      <http:operation location="addProductContent"/>
+      <wsdl:input>
+        <mime:content part="parameters" type="application/xml"/>
+      </wsdl:input>
+    </wsdl:operation>
+    <wsdl:operation name="registerAnimal">
+      <http:operation location="registerAnimal"/>
+      <wsdl:input>
+        <mime:content part="parameters" type="application/xml"/>
+      </wsdl:input>
+    </wsdl:operation>
+    <wsdl:operation name="getInfectedProducts">
+      <http:operation location="getInfectedProducts"/>
+      <wsdl:input>
+        <mime:content part="parameters" type="application/xml"/>
+      </wsdl:input>
+      <wsdl:output>
+        <mime:content part="parameters" type="application/xml"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="registerTray">
+      <http:operation location="registerTray"/>
+      <wsdl:input>
+        <mime:content part="parameters" type="application/xml"/>
+      </wsdl:input>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="IWebServer">
+    <wsdl:port name="IWebServerHttpSoap11Endpoint" binding="ns:IWebServerSoap11Binding">
+      <soap:address location="http://localhost:8080/axis2/services/IWebServer"/>
+    </wsdl:port>
+    <wsdl:port name="IWebServerHttpEndpoint" binding="ns:IWebServerHttpBinding">
+      <http:address location="http://localhost:8080/axis2/services/IWebServer"/>
+    </wsdl:port>
+    <wsdl:port name="IWebServerHttpSoap12Endpoint" binding="ns:IWebServerSoap12Binding">
+      <soap12:address location="http://localhost:8080/axis2/services/IWebServer"/>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

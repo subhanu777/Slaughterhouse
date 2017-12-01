@@ -1,6 +1,8 @@
 package adapter;
 
 import java.io.Serializable;
+import java.rmi.RemoteException;
+import java.rmi.server.UnicastRemoteObject;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
@@ -22,8 +24,8 @@ public class Adapter implements IAdapter {
 	private static final String PASSWORD = "bogdan";
 	private static Connection conn;
 
-	public Adapter() throws SQLException {
-		DriverManager.registerDriver(new oracle.jdbc.OracleDriver());
+	public Adapter() throws SQLException{
+	DriverManager.registerDriver(new oracle.jdbc.OracleDriver());
 	}
 
 	private void openDatabase() throws SQLException {
@@ -57,7 +59,7 @@ public class Adapter implements IAdapter {
 	}
 
 	@Override
-	public void registerAnimal(double weight) throws SQLException {
+	public void registerAnimal(double weight) throws SQLException{
 		openDatabase();
 		String sql = "insert into animal values (sq_id.nextval," + weight + ")";
 		PreparedStatement stmt = conn.prepareStatement(sql);
@@ -105,7 +107,7 @@ public class Adapter implements IAdapter {
 	}
 	
 	@Override
-	public void addProductContent(int productId, int trayId) throws SQLException {
+	public void addProductContent(int productId, int trayId) throws SQLException{
 		try {
 			openDatabase();
 			String sql = "insert into product_content values (" + productId + ", " + trayId + ")";
@@ -125,7 +127,7 @@ public class Adapter implements IAdapter {
 	}
 
 	@Override
-	public void addTrayContent(int trayId, int animalId,double weight) throws SQLException {
+	public void addTrayContent(int trayId, int animalId,double weight) throws SQLException{
 		try {
 			openDatabase();
 			String sql = "insert into tray_content values (" + animalId + ", " + trayId + ", "+ weight + ")";
@@ -145,7 +147,7 @@ public class Adapter implements IAdapter {
 	}
 
 	@Override
-	public ArrayList<Integer> getInfectedProducts(int productId) throws SQLException {
+	public int[] getInfectedProducts(int productId) throws SQLException {
 		ArrayList<Integer> products = new ArrayList<>();
 		try {
 			openDatabase();
@@ -155,11 +157,8 @@ public class Adapter implements IAdapter {
 			ResultSet rs = stmt.executeQuery();
 			System.out.println("Infected Products");
 			while (rs.next()) {
-				
 				int ssn = rs.getInt("product_id");
-				products.add(ssn);
-				System.out.println(ssn);
-				
+				products.add(ssn);				
 			}
 			rs.close();
 			stmt.close();
@@ -169,13 +168,14 @@ public class Adapter implements IAdapter {
 			System.out.println(e.getMessage());
 			e.printStackTrace();
 		}
-		return products;
-	}
-
-	public static void main(String[] args) throws SQLException {
-
-		Adapter ad = new Adapter();
-		ad.getInfectedProducts(11);
+		
+		int[] result = new int[products.size()];
+		
+		for(int i= 0; i<result.length;i++)
+			result[i]=products.get(i);
+		
+		
+		return result;
 	}
 
 }
